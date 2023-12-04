@@ -1,0 +1,35 @@
+<div class="row" *ngIf="usuarios">
+    <div class="col">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Dni</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col"><span style="color: blue;">Editar</span>/<span style="color: red;">Eliminar</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios; let i=index">
+                    <td>{{usuario.nombre}}</td>
+                    <td>{{usuario.apellidos}}</td>
+                    <td>{{usuario.dni}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.telefono}}</td>
+                    <td>
+                        <i class="bi bi-pencil-square text-success" style="margin-left: 16px;" routerLink="/clientes/detalle/{{usuario.id}}"></i>/
+                        <i class="bi bi-trash text-danger" style="margin-left: 6px;" (click)="eliminaUsuario(usuario)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>  
+<div class="row">
+    <div class="col text-center m-3">
+        <button type="button" class="btn btn-primary" style="margin-top: 15px; margin-bottom: 10px;"
+            routerLink="/clientes/agregar">Añadir</button>
+    </div>
+</div>

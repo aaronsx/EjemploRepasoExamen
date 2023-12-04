@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "EjemploRepasoExamen",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

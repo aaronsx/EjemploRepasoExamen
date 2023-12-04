@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "elecciones-925ab": {
+      "hosting": {
+        "EjemploRepasoExamen": [
+          "elecciones-925ab"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "elecciones-925ab"
+  }
+}
