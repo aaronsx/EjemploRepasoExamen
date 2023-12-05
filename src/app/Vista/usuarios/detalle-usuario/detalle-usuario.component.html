@@ -1,6 +1,7 @@
 
 <div class="form-container">    
     <form [formGroup]="form3" (submit)="enviar()" class="your-form-class">
+        <input type="text" formControlName="id" hidden>
         <div class="form-group text-center">
             <label for="nombre ">Nombre:</label>
             <input formControlName="nombre" class="form-control">
@@ -23,7 +24,7 @@
         </div>
         <div class="row">
             <div class="form-group col text-center m-3">
-                <button class="button-23" role="button" routerLink="/Clientes/agregar"  
+                <button class="button-23" role="button"  
                 style="margin-top: 15px; margin-bottom: 10px;"
                 type="submit"
                 [disabled]="!form3.valid"
