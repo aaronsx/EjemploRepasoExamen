@@ -19,8 +19,8 @@
                     <td>{{usuario.email}}</td>
                     <td>{{usuario.telefono}}</td>
                     <td>
-                        <i class="bi bi-pencil-square text-success" style="margin-left: 16px;" routerLink="/Clientes/detalle/{{usuario.id}}"></i>/
-                        <i class="bi bi-trash text-danger" style="margin-left: 6px;" (click)="eliminaUsuario(usuario)"></i>
+                        <i class="bi bi-pencil-square" routerLink="/Clientes/detalle/{{usuario.id}}">Editar</i>/
+                        <i class="bi bi-trash" (click)="eliminaUsuario(usuario)">Eliminar</i>
                     </td>
                 </tr>
             </tbody>
@@ -32,6 +32,6 @@
         <button class="button-23" role="button" routerLink="/Clientes/agregar" style="margin-top: 15px; margin-bottom: 10px;">Añadir</button>
     </div>
 </div>
-<!-- HTML !-->
+
 
 

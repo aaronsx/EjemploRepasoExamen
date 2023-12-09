@@ -1,7 +1,7 @@
 export interface Cita {
-    id_Cita?:string;
+    id?:string;
     visto:boolean;
-    entrevistadoPor: string;
+    entrevistador: string;
     diaDeLaCita:string;
     horaDeLaCita:string;
     id_usuario:string;

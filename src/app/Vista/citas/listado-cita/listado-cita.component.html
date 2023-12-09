@@ -1,1 +1,34 @@
-<p>a</p>
+<div class="row" *ngIf="citas">
+    <div class="col">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Dni</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col"><span style="color: blue;">Editar</span>/<span style="color: red;">Eliminar</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios; let i=index">
+                    <td>{{usuario.nombre}}</td>
+                    <td>{{usuario.apellidos}}</td>
+                    <td>{{usuario.dni}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.telefono}}</td>
+                    <td>
+                        <i class="bi bi-pencil-square" routerLink="/Clientes/detalle/{{usuario.id}}">Editar</i>/
+                        <i class="bi bi-trash" (click)="eliminaCita(usuario)">Eliminar</i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>  
+<div class="row">
+    <div class="col text-center m-3">
+        <button class="button-23" role="button" routerLink="/Clientes/agregar" style="margin-top: 15px; margin-bottom: 10px;">Añadir</button>
+    </div>
+</div>

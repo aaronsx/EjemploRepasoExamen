@@ -1,1 +1,35 @@
-<p>detalle-cita works!</p>
+<div class="form-container">    
+    <form [formGroup]="form3" (submit)="enviar()" class="your-form-class">
+        <input type="text" formControlName="id" hidden>
+        <div class="form-group text-center">
+            <label for="nombre ">Nombre:</label>
+            <input formControlName="nombre" class="form-control">
+        </div>
+        <div class="form-group text-center">
+            <label for="apellidos">Apellido:</label>
+            <input formControlName="apellidos" class="form-control">
+        </div>
+        <div class="form-group text-center">
+            <label  for="dni">Dni:</label>
+            <input formControlName="dni" class="form-control" oninput="javascript: if (!/^\d*[0-9A-Za-z]$/.test(this.value)) this.value = this.value.slice(0, -1);">
+        </div>
+        <div class="form-group text-center">
+            <label for="email">Email:</label>
+            <input formControlName="email" class="form-control" >
+        </div>
+        <div class="form-group text-center">
+            <label for="telefono">Telefono:</label>
+            <input formControlName="telefono" class="form-control" type="number" onkeydown="return event.keyCode !== 69">
+        </div>
+        <div class="row">
+            <div class="form-group col text-center m-3">
+                <button class="button-23" role="button"  
+                style="margin-top: 15px; margin-bottom: 10px;"
+                type="submit"
+                [disabled]="!form3.valid"
+                >Enviar</button>
+            </div>
+        </div>
+        
+    </form>
+</div>

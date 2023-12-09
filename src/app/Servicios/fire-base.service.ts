@@ -13,7 +13,12 @@ export class FireBaseService {
     const collecionRef = collection(this.fb, nombreColeccion);
     return collectionData(collecionRef, {idField: "id"}) as Observable<any[]>;
   }
-
+  //Devuelve el resultado de una consulta Get de uno o varios
+  getFireBasePorCampo(coleccion:string,campo:string,valor:any){
+    const coleccionRef=collection(this.fb,coleccion);
+    const queryRef=query(coleccionRef,where(campo,"==",valor))
+    return collectionData(queryRef,{idField:"id"})as Observable<any[]>;
+  }
   getFireBasePorId(nombreColeccion: string, idA:string){
     const collecionRef = doc(this.fb, nombreColeccion+"/"+idA);
     return docData(collecionRef, {idField: "id"}) as Observable<any>;

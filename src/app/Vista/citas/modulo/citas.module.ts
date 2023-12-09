@@ -6,6 +6,8 @@ import { CitasComponent } from '../citas.component';
 import { DetalleCitaComponent } from '../detalle-cita/detalle-cita.component';
 import { ListadoCitaComponent } from '../listado-cita/listado-cita.component';
 import { MenuCitaComponent } from '../menu-cita/menu-cita.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -17,7 +19,10 @@ import { MenuCitaComponent } from '../menu-cita/menu-cita.component';
   ],
   imports: [
     CommonModule,
-    CitasRoutingModule
+    CitasRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule
   ]
 })
 export class CitasModule { }
