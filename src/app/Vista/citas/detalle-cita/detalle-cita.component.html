@@ -1,25 +1,53 @@
 <div class="form-container">    
     <form [formGroup]="form3" (submit)="enviar()" class="your-form-class">
-        <input type="text" formControlName="id" hidden>
-        <div class="form-group text-center">
-            <label for="nombre ">Nombre:</label>
-            <input formControlName="nombre" class="form-control">
-        </div>
-        <div class="form-group text-center">
-            <label for="apellidos">Apellido:</label>
-            <input formControlName="apellidos" class="form-control">
-        </div>
+    
         <div class="form-group text-center">
             <label  for="dni">Dni:</label>
-            <input formControlName="dni" class="form-control" oninput="javascript: if (!/^\d*[0-9A-Za-z]$/.test(this.value)) this.value = this.value.slice(0, -1);">
+            <select formControlName="dni">
+                <option *ngFor="let usu of usuario" [value]="usu.dni">{{ usu.dni }}</option>
+              </select>
+        </div>
+        <div *ngIf="form3.controls['dni'].errors" class="text-danger">
+            El DNI es Obligatorio
         </div>
         <div class="form-group text-center">
-            <label for="email">Email:</label>
-            <input formControlName="email" class="form-control" >
+            <label for="diaCita">Dia de la Cita:</label>
+            <input class="form-control" formControlName="diaCita" name="diaCita" type="date">
+        </div>
+        <div *ngIf="form3.controls['diaCita'].errors" class="text-danger">
+            El dia de la cita es Obligatorio
         </div>
         <div class="form-group text-center">
-            <label for="telefono">Telefono:</label>
-            <input formControlName="telefono" class="form-control" type="number" onkeydown="return event.keyCode !== 69">
+            <label for="horaCita">Hora de la Cita:</label>
+            <select formControlName="horaCita">
+                <option [value]="'10:00'">10:00</option>
+                <option [value]="'10:30'">10:30</option>
+                <option [value]="'11:00'">11:00</option>
+                <option [value]="'11:30'">11:30</option>
+                <option [value]="'12:00'">12:00</option>
+                <option [value]="'12:30'">12:30</option>
+                <option [value]="'13:00'">13:00</option>
+                <option [value]="'13:30'">13:30</option>
+            </select>
+        </div>
+        <div *ngIf="form3.controls['horaCita'].errors" class="text-danger">
+            La Hora de la cita es Obligatorio
+        </div>
+        <div class="form-group text-center"  *ngIf(id!="")>
+            <label for="visto">Se ha entrevistado:
+                <input  formControlName="visto" name="visto" type="checkbox">
+            </label>
+        </div>
+        <div class="form-group text-center">
+            <label for="entrevistador">Entrevistador: </label>
+            <select formControlName="entrevistador">
+                <option [value]="'A'">Entrevistador A</option>
+                <option [value]="'B'">Entrevistador B</option>
+            </select>
+        </div>
+        <!--Cambiar todos los div *ngIf-->
+        <div *ngIf="form3.controls['entrevistador'].errors" class="text-danger">
+            El Entrevistador de la cita es Obligatorio
         </div>
         <div class="row">
             <div class="form-group col text-center m-3">

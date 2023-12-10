@@ -1,26 +1,41 @@
-<div class="row" *ngIf="citas">
+<nav class="navbar navbar-expand-lg  navbar-transparent border rounded" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item ">
+                    <a class="nav-link active tamaño" aria-current="page" (click)="vistos()" ><span class="color">Visto</span></a>
+                </li>
+                <li class="nav-item" >
+                    <a class="nav-link active tamaño" aria-current="page" (click)="pendientes()" ><span class="color">No visto</span></a>
+                </li>
+                <li class="nav-item" >
+                    <a class="nav-link active tamaño" aria-current="page" (click)="todos()" ><span class="color">Todos</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="row" *ngIf="mostrarTodo" >
     <div class="col">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellidos</th>
                     <th scope="col">Dni</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Teléfono</th>
+                    <th scope="col">Entrevistador</th>
+                    <th scope="col">Dia</th>
+                    <th scope="col">Hola</th>
                     <th scope="col"><span style="color: blue;">Editar</span>/<span style="color: red;">Eliminar</span></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let usuario of usuarios; let i=index">
-                    <td>{{usuario.nombre}}</td>
-                    <td>{{usuario.apellidos}}</td>
-                    <td>{{usuario.dni}}</td>
-                    <td>{{usuario.email}}</td>
-                    <td>{{usuario.telefono}}</td>
+                <tr *ngFor="let cita of mostrarTodo; let i=index">
+                    <td>{{cita.dniUsuario}}</td>
+                    <td>{{cita.entrevistrador}}</td>
+                    <td>{{cita.diaDeEntevista}}</td>
+                    <td>{{cita.horaDeEntrevista}}</td>
                     <td>
-                        <i class="bi bi-pencil-square" routerLink="/Clientes/detalle/{{usuario.id}}">Editar</i>/
-                        <i class="bi bi-trash" (click)="eliminaCita(usuario)">Eliminar</i>
+                        <i class="bi bi-pencil-square" routerLink="/Citas/detalle/{{cita.id}}">Editar</i>/
+                        <i class="bi bi-trash" (click)="eliminaCita(cita)">Eliminar</i>
                     </td>
                 </tr>
             </tbody>
@@ -29,6 +44,6 @@
 </div>  
 <div class="row">
     <div class="col text-center m-3">
-        <button class="button-23" role="button" routerLink="/Clientes/agregar" style="margin-top: 15px; margin-bottom: 10px;">Añadir</button>
+        <button class="button-23" role="button" routerLink="/Citas/agregar" style="margin-top: 15px; margin-bottom: 10px;">Añadir</button>
     </div>
 </div>

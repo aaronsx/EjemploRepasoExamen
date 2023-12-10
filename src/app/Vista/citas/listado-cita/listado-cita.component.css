@@ -1,0 +1,23 @@
+.navbar-transparent {
+    background-color: rgba(56, 56, 56, 0.4); /* Ajusta la opacidad según tus preferencias */
+    border-color: rgba(255, 255, 255, 0.1); /* Ajusta el color del borde según tus preferencias */
+    
+}
+
+/* Color del texto en el navbar transparente */
+.navbar-transparent .navbar-nav .nav-link {
+    color: black; /* Ajusta el color del texto según tus preferencias */
+}
+.tamaño{
+    transition: color 0.3s, transform 0.3s;
+}
+
+.tamaño:hover {
+    transform: scale(1.1); /* Ajusta el valor según tus preferencias */
+}
+.color{
+    color: aliceblue;
+}
+.color:hover{
+    color: aqua;
+}

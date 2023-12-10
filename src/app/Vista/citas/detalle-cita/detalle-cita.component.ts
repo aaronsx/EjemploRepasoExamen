@@ -43,14 +43,18 @@ export class DetalleCitaComponent {
   constructor(private formBuilder: FormBuilder,private route:ActivatedRoute,private fbs: FireBaseService){}
 
   enviar() {
-    
+    console.log(this.form3.value);
     for (let user of this.usuario) {
       if (user.dni === this.form3.value.dni) {
-        this.citas.visto=false;
-        this.citas.horaDeLaCita=this.form3.value.horaCita;
-        this.citas.entrevistador=this.form3.value.entrevistador;
-        this.citas.diaDeLaCita=this.form3.value.diaCita;
-        this.citas.id_usuario=user.id;
+        // Asegúrate de que this.citas está inicializado
+        this.citas = this.citas || {}; // Inicializa como un objeto vacío si es undefined
+    
+        this.citas.visto = this.form3.value.visto;
+        this.citas.horaDeLaCita = this.form3.value.horaCita;
+        this.citas.entrevistador = this.form3.value.entrevistador;
+        this.citas.diaDeLaCita = this.form3.value.diaCita;
+        this.citas.id_usuario = user.id;
+    
         break; // Sale del bucle cuando se encuentra el usuario
       }
     }
@@ -60,7 +64,7 @@ export class DetalleCitaComponent {
     this.modificarCita();
   else
     {
-      console.log(this.citas);
+     
       this.agregarCita();
     }
   }
