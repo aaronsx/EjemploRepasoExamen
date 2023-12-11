@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Cita } from 'src/app/Modulos/cita';
 import { Usuario } from 'src/app/Modulos/usuario';
@@ -16,7 +16,7 @@ export class DetalleCitaComponent {
   //Entidades 
   usuario: Usuario[]=[];
   cita: any;
-  citas: any;
+  citas: Cita={visto:false, entrevistador: "", diaDeLaCita:"",horaDeLaCita:"",id_usuario:""};
   id: string = "";
   //Formulario reactivo
   form3 =  this.formBuilder.group({
@@ -56,7 +56,7 @@ export class DetalleCitaComponent {
               .subscribe(res => this.usuario = res);
   }
   constructor(private formBuilder: FormBuilder,private route:ActivatedRoute,
-    private fbs: FireBaseService){}
+    private fbs: FireBaseService,private router: Router){}
 
     //Metodo que llama de para guardar en la base de datos
   enviar() {
@@ -66,11 +66,26 @@ export class DetalleCitaComponent {
       //todo y la id del usuario indicado
       if (user.dni === this.form3.value.dni) {
         // 
-        this.citas.visto = this.form3.value.visto;
-        this.citas.horaDeLaCita = this.form3.value.horaCita;
-        this.citas.entrevistador = this.form3.value.entrevistador;
-        this.citas.diaDeLaCita = this.form3.value.diaCita;
-        this.citas.id_usuario = user.id;
+        
+        if (this.form3.value.visto !== null && this.form3.value.visto !== undefined) {
+          this.citas.visto = this.form3.value.visto;
+        }
+        if (this.form3.value.horaCita !== null && this.form3.value.horaCita !== undefined) {
+          this.citas.horaDeLaCita = this.form3.value.horaCita;
+        }
+        
+        if (this.form3.value.entrevistador !== null && this.form3.value.entrevistador !== undefined) {
+          this.citas.entrevistador = this.form3.value.entrevistador;
+        }
+        
+        if (this.form3.value.diaCita !== null && this.form3.value.diaCita !== undefined) {
+          this.citas.diaDeLaCita = this.form3.value.diaCita;
+        }
+        
+        // Asegúrate de tener un valor definido para id_usuario antes de asignarlo
+        if (user.id !== null && user.id !== undefined) {
+          this.citas.id_usuario = user.id;
+        }
          // Sale del bucle cuando se encuentra el usuario
         break;
       }
@@ -100,6 +115,7 @@ export class DetalleCitaComponent {
          text: "El cliente no ha sido guardado",
          icon: 'error'
        }));
+       this.router.navigate(['http://localhost:4200/Citas/listado']); // La ruta de la página a la que quieres redirigir
       } else 
       {
        //Por si la hora y el dia ya existe
@@ -128,6 +144,7 @@ export class DetalleCitaComponent {
           text: "El cliente no ha sido editado",
           icon: 'error'
         }));
+        this.router.navigate(['http://localhost:4200/Citas/listado']); // La ruta de la página a la que quieres redirigir
       } else 
       {
         //Por si la hora y el dia ya existe

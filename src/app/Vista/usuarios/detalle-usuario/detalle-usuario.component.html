@@ -6,21 +6,36 @@
             <label for="nombre ">Nombre:</label>
             <input formControlName="nombre" class="form-control">
         </div>
+        <div *ngIf="form3.controls['nombre'].errors" class="text-danger">
+            El nombre es obligatorio 
+        </div>
         <div class="form-group text-center">
             <label for="apellidos">Apellido:</label>
             <input formControlName="apellidos" class="form-control">
+        </div>
+        <div *ngIf="form3.controls['apellidos'].errors" class="text-danger">
+            El apellido es obligatorio 
         </div>
         <div class="form-group text-center">
             <label  for="dni">Dni:</label>
             <input formControlName="dni" class="form-control" oninput="javascript: if (!/^\d*[0-9A-Za-z]$/.test(this.value)) this.value = this.value.slice(0, -1);">
         </div>
+        <div *ngIf="form3.controls['dni'].errors" class="text-danger">
+            El dni es obligatorio 
+        </div>
         <div class="form-group text-center">
             <label for="email">Email:</label>
             <input formControlName="email" class="form-control" >
         </div>
+        <div *ngIf="form3.controls['email'].errors" class="text-danger">
+            El email es obligatorio 
+        </div>
         <div class="form-group text-center">
             <label for="telefono">Telefono:</label>
             <input formControlName="telefono" class="form-control" type="number" onkeydown="return event.keyCode !== 69">
+        </div>
+        <div *ngIf="form3.controls['telefono'].errors" class="text-danger">
+            El telefono es obligatorio 
         </div>
         <div class="row">
             <div class="form-group col text-center m-3">

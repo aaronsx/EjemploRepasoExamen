@@ -67,7 +67,11 @@ label{
   margin: auto; /* Centra el formulario horizontalmente */
   margin-top: 50px; /* Ajusta el margen superior según tus preferencias */
 }
-
+.form-group select {
+  width: 100%;
+  padding: 3px; /* Ajusta el relleno según tus preferencias */
+  margin-top: 10px; /* Ajusta el margen superior según tus preferencias */
+}
 .your-form-class {
   /* Añade estilos específicos para tu formulario si es necesario */
 }

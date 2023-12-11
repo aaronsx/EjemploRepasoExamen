@@ -1,0 +1,4 @@
+h2 {
+    text-decoration: underline; /* Ajusta el estilo del trazado según tus preferencias */
+    text-decoration-skip-ink: auto; /* Mejora la apariencia en algunos navegadores */
+  }
