@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./detalle-usuario.component.css']
 })
 export class DetalleUsuarioComponent {
+  //Entidades
   usuario: any;
   id: string = "";
   form3 = this.formBuilder.group({
@@ -20,36 +21,36 @@ export class DetalleUsuarioComponent {
     email: ['', [Validators.required, Validators.email]],
     telefono: ['', [Validators.required,Validators.maxLength(9)]]  
   })
-  ngOnInit() {
-    if (this.route.snapshot.paramMap.get("id")) {
-      this.id = this.route.snapshot.paramMap.get("id")!;
-      console.log(this.id);
-      this.fbs.getFireBasePorId('Usuario', this.id).subscribe(
-        (res: any) => {
-          this.usuario = res;
-  
-          // Asigna los valores del usuario al formulario
-          this.form3.setValue(this.usuario);
-        }
-      );
+    ngOnInit() 
+    {
+      //if para pillar la id de la url se guarda en id
+      if (this.route.snapshot.paramMap.get("id")) {
+        this.id = this.route.snapshot.paramMap.get("id")!;
+        //Busca id en la tabla usuario
+        this.fbs.getFireBasePorId('Usuario', this.id).subscribe(
+          (res: any) => {
+            this.usuario = res;
+    
+            // Asigna los valores del usuario al formulario
+            this.form3.setValue(this.usuario);
+          }
+        );
+      }
     }
-  }
   constructor(private formBuilder: FormBuilder,private route:ActivatedRoute,private fbs: FireBaseService){}
 
   enviar() {
     
     if(this.id != "")
-    this.modificarUsuario();
-  else
-    {
-      console.log(this.form3.value);
-      this.agregarUsuario();
-    }
+      this.modificarUsuario();
+    else
+      this.agregarUsuario();  
+
   }
 
   agregarUsuario()
   {
-    
+    //Swal es un tipo de alertas realizada si se borra o no el usuario
     this.fbs.setFireBase(this.form3.value,'Usuario').then(() => Swal.fire({
         title: "Guardado!",
         text: "Cliente ha sido guardado",
@@ -64,7 +65,7 @@ export class DetalleUsuarioComponent {
   }
   modificarUsuario()
   {
-    console.log(this.form3.value);
+    //Swal es un tipo de alertas realizada
     this.fbs.updateFireBase(this.form3.value,'Usuario', this.id!).then(() => Swal.fire({
       title: "Editado!",
       text: "Cliente ha sido editado",

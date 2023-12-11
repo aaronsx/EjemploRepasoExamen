@@ -20,6 +20,7 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">Dni</th>
                     <th scope="col">Entrevistador</th>
                     <th scope="col">Dia</th>
@@ -28,7 +29,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let cita of mostrarTodo; let i=index">
+                <tr *ngFor="let cita of mostrarTodo">
+                    <ng-container *ngIf="!cita.visto; else disponible">
+                        <td><span style="color: red;">No visto</span></td>
+                    </ng-container>
+                    <ng-template #disponible>
+                        <td><span style="color: green;">Visto</span></td>
+                    </ng-template>
                     <td>{{cita.dniUsuario}}</td>
                     <td>{{cita.entrevistrador}}</td>
                     <td>{{cita.diaDeEntevista}}</td>

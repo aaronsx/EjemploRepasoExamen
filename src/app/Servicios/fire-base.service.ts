@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, QueryConstraint, addDoc, collection, collectionData, deleteDoc, doc, docData, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FireBaseService {
+  queyCollection2campos(coleccion:string,campo:string,valor:any,campo2:string,valor2:any){
+    const coleccionRef=collection(this.fb,coleccion);
+    const wa:QueryConstraint[] = [where(campo,"==",valor),where(campo2,"==",valor2)];
+    //operador rest añade las variables como tal y no como campos
+    const queryRef=query(coleccionRef,...wa);
+    return collectionData(queryRef,{idField:"id"})as Observable<any[]>;
+  }
 
   constructor(private fb:Firestore) { }
   

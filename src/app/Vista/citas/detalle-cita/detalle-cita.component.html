@@ -33,7 +33,7 @@
         <div *ngIf="form3.controls['horaCita'].errors" class="text-danger">
             La Hora de la cita es Obligatorio
         </div>
-        <div class="form-group text-center"  *ngIf(id!="")>
+        <div class="form-group text-center"  *ngIf="id != ''">
             <label for="visto">Se ha entrevistado:
                 <input  formControlName="visto" name="visto" type="checkbox">
             </label>

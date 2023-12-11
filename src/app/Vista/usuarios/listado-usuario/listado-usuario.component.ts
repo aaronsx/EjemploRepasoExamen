@@ -12,12 +12,14 @@ export class ListadoUsuarioComponent {
     usuarios:Usuario[]=[];
     constructor(private fbs:FireBaseService){}
     
-    ngOnInit(){
+    ngOnInit()
+    {
       this.fbs.getFireBase("Usuario")
               .subscribe(res => this.usuarios = res);
     }
+    //Metodo eliminar usuario
     eliminaUsuario(usuario: Usuario){
-
+      //Estos son alertas para saber si quieres borrar 
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: "btn btn-success",
@@ -35,6 +37,7 @@ export class ListadoUsuarioComponent {
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
+          //Si el usuario confirma borraria el usuario
          this.fbs.deleteFireBase(usuario, "Usuario")
             .then(() => swalWithBootstrapButtons.fire({
               title: "Eliminado!",
