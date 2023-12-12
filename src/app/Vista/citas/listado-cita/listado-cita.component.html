@@ -25,21 +25,22 @@
                     <th scope="col">Entrevistador</th>
                     <th scope="col">Dia</th>
                     <th scope="col">Hola</th>
+                    <th scope="col">Visto</th>
                     <th scope="col"><span style="color: blue;">Editar</span>/<span style="color: red;">Eliminar</span></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let cita of mostrarTodo">
+                    <td>{{cita.dniUsuario}}</td>
+                    <td>{{cita.entrevistrador}}</td>
+                    <td>{{cita.diaDeEntevista}}</td>
+                    <td>{{cita.horaDeEntrevista}}</td>
                     <ng-container *ngIf="!cita.visto; else disponible">
                         <td><span style="color: red;">No visto</span></td>
                     </ng-container>
                     <ng-template #disponible>
                         <td><span style="color: green;">Visto</span></td>
                     </ng-template>
-                    <td>{{cita.dniUsuario}}</td>
-                    <td>{{cita.entrevistrador}}</td>
-                    <td>{{cita.diaDeEntevista}}</td>
-                    <td>{{cita.horaDeEntrevista}}</td>
                     <td>
                         <i class="bi bi-pencil-square" routerLink="/Citas/detalle/{{cita.id}}">Editar</i>/
                         <i class="bi bi-trash" (click)="eliminaCita(cita)">Eliminar</i>
@@ -49,8 +50,4 @@
         </table>
     </div>
 </div>  
-<div class="row">
-    <div class="col text-center m-3">
-        <button class="button-23" role="button" routerLink="/Citas/agregar" style="margin-top: 15px; margin-bottom: 10px;">Añadir</button>
-    </div>
-</div>
+
