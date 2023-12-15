@@ -9,7 +9,7 @@
                     <a class="nav-link active tamaño" aria-current="page" (click)="pendientes()" ><span class="color">No visto</span></a>
                 </li>
                 <li class="nav-item" >
-                    <a class="nav-link active tamaño" aria-current="page" (click)="todos()" ><span class="color">Todos</span></a>
+                    <a class="nav-link active tamaño" aria-current="page" (click)="obtenerCitasDia()" ><span class="color">Todos</span></a>
                 </li>
             </ul>
         </div>
@@ -31,14 +31,20 @@
             </thead>
             <tbody>
                 <tr *ngFor="let cita of mostrarTodo">
+                    <ng-container *ngIf="cita.dniUsuario !== 'No hay usuario'; else disponible">
+                        <td><span style="color: green;">Ocupado</span></td>
+                    </ng-container>
+                    <ng-template #disponible>
+                        <td><span style="color: red;">Libre</span></td>
+                    </ng-template>
                     <td>{{cita.dniUsuario}}</td>
                     <td>{{cita.entrevistrador}}</td>
                     <td>{{cita.diaDeEntevista}}</td>
                     <td>{{cita.horaDeEntrevista}}</td>
-                    <ng-container *ngIf="!cita.visto; else disponible">
+                    <ng-container *ngIf="!cita.visto; else visto">
                         <td><span style="color: red;">No visto</span></td>
                     </ng-container>
-                    <ng-template #disponible>
+                    <ng-template #visto>
                         <td><span style="color: green;">Visto</span></td>
                     </ng-template>
                     <td>

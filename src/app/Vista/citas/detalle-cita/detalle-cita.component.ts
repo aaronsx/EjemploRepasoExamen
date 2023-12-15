@@ -18,25 +18,32 @@ export class DetalleCitaComponent {
   cita: any;
   citas: Cita={visto:false, entrevistador: "", diaDeLaCita:"",horaDeLaCita:"",id_usuario:""};
   id: string = "";
+   // Variables para la fecha
+   hoy = new Date();
+   anyo = this.hoy.getFullYear();
+  mes = this.hoy.getMonth() + 1;
+ dia = this.hoy.getDate();
   //Formulario reactivo
-  form3 =  this.formBuilder.group({
+  form3 = this.formBuilder.group({
     dni: ['', [Validators.required]],
-    visto:[false],
-    diaCita:["",[ Validators.required]],
-    horaCita:["",[ Validators.required]],
-    entrevistador:["",[ Validators.required]]
-  })
+    visto: [false],
+    diaCita: [{ value: '', disabled: true }, [Validators.required]],
+    horaCita: [{ value: '', disabled: true }, [Validators.required]],
+    entrevistador: [{ value: '', disabled: true }, [Validators.required]]
+  });
 
   ngOnInit() {
+    const fecha = `${this.dia}${this.mes}${this.anyo}`;
     //if para pillar la id de la url se guarda en id
     if (this.route.snapshot.paramMap.get("id")) {
       this.id = this.route.snapshot.paramMap.get("id")!;
       //Busca id en la tabla cita
-      this.fbs.getFireBasePorId('Citas', this.id).subscribe(
+      this.fbs.getFireBasePorId(`Agenda/${fecha}/citas`, this.id).subscribe(
         (res: any) => {
           this.cita = res;
           //Busca con el campo cita.id_usuario 
           //el id del usuario para sacar el dni y guardarlo en el formulario
+         if(this.cita.id_usuario){
           this.fbs
           .getFireBasePorId('Usuario', this.cita.id_usuario)
           .subscribe((usuario) => {
@@ -48,8 +55,15 @@ export class DetalleCitaComponent {
           this.form3.controls.visto.setValue(this.cita.visto);
           this.form3.controls.diaCita.setValue(this.cita.diaDeLaCita);
           this.form3.controls.horaCita.setValue(this.cita.horaDeLaCita);
-        }
-      );
+        }else{
+          this.form3.controls.dni.setValue(this.cita.visto);
+          this.form3.controls.entrevistador.setValue(this.cita.entrevistador);
+          this.form3.controls.visto.setValue(this.cita.visto);
+          this.form3.controls.diaCita.setValue(this.cita.diaDeLaCita);
+          this.form3.controls.horaCita.setValue(this.cita.horaDeLaCita);
+         }
+
+      });
     }
     //Busca a todos los usuario para llevarlo al formulario
     this.fbs.getFireBase("Usuario")
@@ -61,6 +75,7 @@ export class DetalleCitaComponent {
     //Metodo que llama de para guardar en la base de datos
   enviar() {
     //Recorre un bucle que en este caso guarda 
+    
     for (let user of this.usuario) {
       //Si el dni user es igual a que has seleccionado que se guarde 
       //todo y la id del usuario indicado
@@ -70,16 +85,16 @@ export class DetalleCitaComponent {
         if (this.form3.value.visto !== null && this.form3.value.visto !== undefined) {
           this.citas.visto = this.form3.value.visto;
         }
-        if (this.form3.value.horaCita !== null && this.form3.value.horaCita !== undefined) {
-          this.citas.horaDeLaCita = this.form3.value.horaCita;
+        if (this.form3.value.horaCita == null && this.form3.value.horaCita == undefined) {
+          this.citas.horaDeLaCita = this.cita.horaDeLaCita;
         }
         
-        if (this.form3.value.entrevistador !== null && this.form3.value.entrevistador !== undefined) {
-          this.citas.entrevistador = this.form3.value.entrevistador;
+        if (this.form3.value.entrevistador == null && this.form3.value.entrevistador == undefined) {
+          this.citas.entrevistador = this.cita.entrevistador;
         }
         
-        if (this.form3.value.diaCita !== null && this.form3.value.diaCita !== undefined) {
-          this.citas.diaDeLaCita = this.form3.value.diaCita;
+        if (this.form3.value.diaCita == null && this.form3.value.diaCita == undefined) {
+          this.citas.diaDeLaCita = this.cita.diaDeLaCita;
         }
         
         // Asegúrate de tener un valor definido para id_usuario antes de asignarlo
@@ -89,6 +104,7 @@ export class DetalleCitaComponent {
          // Sale del bucle cuando se encuentra el usuario
         break;
       }
+      console.log( this.citas);
     }
 
     if(this.id != "")
@@ -100,13 +116,14 @@ export class DetalleCitaComponent {
 
   agregarCita()
   {
+    const fecha = `${this.dia}${this.mes}${this.anyo}`;
     //llama al metodo que comprueba el dia y la hora
     let d = this.comprobarDisponibilidad(this.citas.diaDeLaCita, this.citas.horaDeLaCita).subscribe(disponible => {
      //Si es true se guarda en la base de dato
      if (disponible) 
      {
        //Swal es un tipo de alertas realizada
-       this.fbs.setFireBase(this.citas,'Citas').then(() => Swal.fire({
+       this.fbs.setFireBase(this.citas,`Agenda/${fecha}/citas`).then(() => Swal.fire({
          title: "Editado!",
          text: "Cliente ha sido guardado",
          icon: 'success'
@@ -129,13 +146,14 @@ export class DetalleCitaComponent {
  }
   modificarCita()
   {
+    const fecha = `${this.dia}${this.mes}${this.anyo}`;
      //llama al metodo que comprueba el dia y la hora
     let d = this.comprobarDisponibilidad(this.citas.diaDeLaCita, this.citas.horaDeLaCita).subscribe(disponible => {
       //Si es true se guarda en la base de dato
       if (disponible) 
       {
         //Swal es un tipo de alertas realizada
-        this.fbs.updateFireBase(this.citas,'Citas', this.id!).then(() => Swal.fire({
+        this.fbs.updateFireBase(this.citas,`Agenda/${fecha}/citas`, this.id!).then(() => Swal.fire({
           title: "Editado!",
           text: "Cliente ha sido editado",
           icon: 'success'

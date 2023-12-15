@@ -26,6 +26,13 @@ export class FireBaseService {
     const queryRef=query(coleccionRef,where(campo,"==",valor))
     return collectionData(queryRef,{idField:"id"})as Observable<any[]>;
   }
+
+  // Crea un nuevo documento
+  setFireBaseDocumento(objeto: any, coleccion: string) {
+    const collectionRef = collection(this.fb, coleccion);
+    return addDoc(collectionRef, objeto) as Promise<any>;
+  }
+
   getFireBasePorId(nombreColeccion: string, idA:string){
     const collecionRef = doc(this.fb, nombreColeccion+"/"+idA);
     return docData(collecionRef, {idField: "id"}) as Observable<any>;

@@ -4,6 +4,8 @@ export interface Cita {
     entrevistador: string;
     diaDeLaCita:string;
     horaDeLaCita:string;
-    id_usuario:string;
+    id_usuario?:string;
 }
+
+
 
