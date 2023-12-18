@@ -70,7 +70,8 @@ export class DetalleCitaComponent {
               .subscribe(res => this.usuario = res);
   }
   constructor(private formBuilder: FormBuilder,private route:ActivatedRoute,
-    private fbs: FireBaseService,private router: Router){}
+    private fbs: FireBaseService,private router: Router
+    ){}
 
     //Metodo que llama de para guardar en la base de datos
   enviar() {
@@ -104,52 +105,18 @@ export class DetalleCitaComponent {
          // Sale del bucle cuando se encuentra el usuario
         break;
       }
-      console.log( this.citas);
-    }
-
-    if(this.id != "")
-      this.modificarCita();
-    else
-      this.agregarCita();
     
+    }
+      this.modificarCita();   
   }
 
-  agregarCita()
-  {
-    const fecha = `${this.dia}${this.mes}${this.anyo}`;
-    //llama al metodo que comprueba el dia y la hora
-    let d = this.comprobarDisponibilidad(this.citas.diaDeLaCita, this.citas.horaDeLaCita).subscribe(disponible => {
-     //Si es true se guarda en la base de dato
-     if (disponible) 
-     {
-       //Swal es un tipo de alertas realizada
-       this.fbs.setFireBase(this.citas,`Agenda/${fecha}/citas`).then(() => Swal.fire({
-         title: "Editado!",
-         text: "Cliente ha sido guardado",
-         icon: 'success'
-       })).catch(()=> Swal.fire({
-         title: "Oops...!",
-         text: "El cliente no ha sido guardado",
-         icon: 'error'
-       }));
-       this.router.navigate(['http://localhost:4200/Citas/listado']); // La ruta de la página a la que quieres redirigir
-      } else 
-      {
-       //Por si la hora y el dia ya existe
-       Swal.fire({
-         title: "Oops...!",
-         text: "El día indicado a la hora indicada no está disponible",
-         icon: 'error'
-       });
-     }
-    });
- }
   modificarCita()
   {
     const fecha = `${this.dia}${this.mes}${this.anyo}`;
      //llama al metodo que comprueba el dia y la hora
     let d = this.comprobarDisponibilidad(this.citas.diaDeLaCita, this.citas.horaDeLaCita).subscribe(disponible => {
       //Si es true se guarda en la base de dato
+      
       if (disponible) 
       {
         //Swal es un tipo de alertas realizada
@@ -162,7 +129,7 @@ export class DetalleCitaComponent {
           text: "El cliente no ha sido editado",
           icon: 'error'
         }));
-        this.router.navigate(['http://localhost:4200/Citas/listado']); // La ruta de la página a la que quieres redirigir
+        
       } else 
       {
         //Por si la hora y el dia ya existe
@@ -172,7 +139,12 @@ export class DetalleCitaComponent {
           icon: 'error'
         });
       }
+
     });
+    this.enviarRuta();
+  }
+  enviarRuta(){
+    this.router.navigateByUrl("/Citas/listado");
   }
   //Metodo para comprobar
   comprobarDisponibilidad(dia: string, hora: string): Observable<boolean> {

@@ -8,13 +8,15 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { MenuComponent } from './Vista/Core/menu/menu.component';
 import { environment } from 'src/environments/environment.development';
+import { BienvenidoComponent } from './Vista/bienvenido/bienvenido.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    BienvenidoComponent
   ],
   imports: [
     BrowserModule,
